@@ -1,2 +1,2 @@
-#go run main.go anchura.go iterativa.go profundidad.go "$#"
-./main.exe $1
+#go run main.go anchura.go iterativa.go profundidad.go <&0
+./main.exe <&0

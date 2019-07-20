@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"syscall"
 
 	"github.com/inancgumus/screen"
 )
@@ -21,11 +22,10 @@ type position struct {
 }
 
 func main() {
-	level := os.Args[1]
-	fmt.Println(level)
-	//method := iaMethod()
+	mapGame, positions := loadLevel()
+	method := iaMethod()
 
-	//executeMethod(method, level)
+	executeMethod(method, mapGame, positions)
 }
 
 func iaMethod() int {
@@ -40,36 +40,18 @@ func iaMethod() int {
 	_, err := fmt.Scan(&method)
 
 	if err != nil || method < 1 || method > 3 {
+
 		return iaMethod()
 	}
 
 	return method
 }
 
-/*func selectLevel() int {
-	var level int
-	screen.Clear()
-
-	fmt.Println("Seleccione el nivel deseado:")
-	fmt.Println("1) Nivel 1")
-	fmt.Println("2) Nivel 2")
-	fmt.Println("3) Nivel 3")
-	fmt.Println("4) Nivel 4")
-	fmt.Print("Ingrese su opcion: ")
-	_, err := fmt.Scan(&level)
-
-	if err != nil || level < 1 || level > 4 {
-		return selectLevel()
-	}
-
-	return level
-}*/
-
-func loadLevel(level string) ([]string, []position) {
-	levelName := fmt.Sprintf("levels/%s", level)
-
-	dat, _ := os.Open(levelName)
+func loadLevel() ([]string, []position) {
+	dat := os.NewFile(uintptr(syscall.Stdin), "/dev/stdin")
 	datBody, _ := ioutil.ReadAll(dat)
+	syscall.Close(syscall.Stdin)
+
 	worldStr := string(datBody)
 	mapData := regexMap.FindAllString(worldStr, -1)
 	positionFound := regexPosition.FindAllStringSubmatch(worldStr, -1)
@@ -88,9 +70,7 @@ func loadLevel(level string) ([]string, []position) {
 	return mapData, positions
 }
 
-func executeMethod(method int, level string) {
-	mapGame, positions := loadLevel(level)
-
+func executeMethod(method int, mapGame []string, positions []position) {
 	switch method {
 	case 1:
 		profundidad(mapGame, positions)
