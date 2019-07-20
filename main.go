@@ -21,10 +21,11 @@ type position struct {
 }
 
 func main() {
-	method := iaMethod()
-	level := selectLevel()
+	level := os.Args[1]
+	fmt.Println(level)
+	//method := iaMethod()
 
-	executeMethod(method, level)
+	//executeMethod(method, level)
 }
 
 func iaMethod() int {
@@ -45,7 +46,7 @@ func iaMethod() int {
 	return method
 }
 
-func selectLevel() int {
+/*func selectLevel() int {
 	var level int
 	screen.Clear()
 
@@ -62,10 +63,10 @@ func selectLevel() int {
 	}
 
 	return level
-}
+}*/
 
-func loadLevel(level int) ([]string, []position) {
-	levelName := fmt.Sprintf("levels/nivel%d.txt", level)
+func loadLevel(level string) ([]string, []position) {
+	levelName := fmt.Sprintf("levels/%s", level)
 
 	dat, _ := os.Open(levelName)
 	datBody, _ := ioutil.ReadAll(dat)
@@ -87,7 +88,7 @@ func loadLevel(level int) ([]string, []position) {
 	return mapData, positions
 }
 
-func executeMethod(method, level int) {
+func executeMethod(method int, level string) {
 	mapGame, positions := loadLevel(level)
 
 	switch method {
