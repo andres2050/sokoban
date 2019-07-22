@@ -1,5 +1,7 @@
 package methods
 
+import "fmt"
+
 // BFS: Breadth First Search
 func BFS(mapGame []string, positions []Position) {
 	playerPos := positions[0]
@@ -8,6 +10,8 @@ func BFS(mapGame []string, positions []Position) {
 }
 
 func executeBFS(playerPosition Position, mapGame []string, goalPos []Position) {
-	
+	if allGoals(mapGame, goalPos) {
+		fmt.Println(playerPosition.Movements)
+		return
+	}
 }
-

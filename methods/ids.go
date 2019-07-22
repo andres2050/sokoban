@@ -1,5 +1,7 @@
 package methods
 
+import "fmt"
+
 // IDS: iterative deepening search
 func IDS(mapGame []string, positions []Position) {
 	playerPos := positions[0]
@@ -8,5 +10,8 @@ func IDS(mapGame []string, positions []Position) {
 }
 
 func executeIDS(playerPosition Position, mapGame []string, goalPos []Position) {
-
+	if allGoals(mapGame, goalPos) {
+		fmt.Println(playerPosition.Movements)
+		return
+	}
 }
