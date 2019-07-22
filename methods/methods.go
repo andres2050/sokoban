@@ -16,7 +16,7 @@ func availableMovements(playerPosition Position, mapGame []string) []Position {
 	movements := playerPosition.Movements
 	movementsPosition := append(playerPosition.MovementsPosition, playerPosition)
 
-	if column+1 < len(mapGame[row]) && mapGame[row][column+1:] != "W" {
+	if column+1 < len(mapGame[row]) && string(mapGame[row][column+1]) != "W" {
 		newPos := Position{
 			Row:               row,
 			Column:            column + 1,
@@ -27,7 +27,7 @@ func availableMovements(playerPosition Position, mapGame []string) []Position {
 			moves = append(moves, newPos)
 		}
 	}
-	if column-1 >= 0 && mapGame[row][column-1:] != "W" {
+	if column-1 >= 0 && string(mapGame[row][column-1]) != "W" {
 		newPos := Position{
 			Row:               row,
 			Column:            column - 1,
@@ -39,7 +39,7 @@ func availableMovements(playerPosition Position, mapGame []string) []Position {
 		}
 	}
 
-	if row+1 < len(mapGame) && mapGame[row+1][column:] != "W" {
+	if row+1 < len(mapGame) && string(mapGame[row+1][column]) != "W" {
 		newPos := Position{
 			Row:               row + 1,
 			Column:            column,
@@ -50,7 +50,7 @@ func availableMovements(playerPosition Position, mapGame []string) []Position {
 			moves = append(moves, newPos)
 		}
 	}
-	if row-1 >= 0 && mapGame[row-1][column:] != "W" {
+	if row-1 >= 0 && string(mapGame[row-1][column]) != "W" {
 		newPos := Position{
 			Row:               row - 1,
 			Column:            column,
