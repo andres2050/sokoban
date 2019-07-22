@@ -73,3 +73,17 @@ func positionExist(playerPosition Position, movementsPosition []Position) bool {
 
 	return false
 }
+
+func allGoals(mapGame []string, goals []Position) bool {
+	for _, goal := range goals {
+		if !isGoal(mapGame, goal) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func isGoal(mapGame []string, goal Position) bool {
+	return string(mapGame[goal.Row][goal.Column]) == "X"
+}
